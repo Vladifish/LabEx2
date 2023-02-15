@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class LabEx2 {
     final static Scanner console = new Scanner(System.in);
 
+    // yes
     static String prefixToInfix(String e) {
         String[] tokenizedPrefix = e.split(" ", 0);
         int n = tokenizedPrefix.length;
@@ -11,6 +12,13 @@ public class LabEx2 {
         Stack<String> operatorStack = new Stack<>();
         String infix = "something"; // will change to something else later
         return infix;
+    }
+
+    static double evalPrefix(String e) {
+        String[] tokenizedPrefix = e.split(" ", 0);
+        int n = tokenizedPrefix.length;
+        double evaluatedPfx = 0;
+        return evaluatedPfx;
     }
 
     public static void main(String[] args) {
