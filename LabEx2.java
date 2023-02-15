@@ -15,16 +15,36 @@ public class LabEx2 {
         int n = tokenizedPrefix.length;
         // I believe the index starts at 1, might have to change
         Stack<String> mainStack = new Stack<>(n);
-        Stack<String> operatorStack = new Stack<>();
-        String infix = "something"; // will change to something else later
-        return infix;
+
+        for (int i = n - 1; i >= 0; i--) {
+            if (!isOperator(tokenizedPrefix[i]))
+                mainStack.push(tokenizedPrefix[i]);
+            else {
+                String A = mainStack.pop();
+                String B = mainStack.pop();
+                String infixExp = String.format("( %s %s %s ) ", A, tokenizedPrefix[i], B);
+                mainStack.push(infixExp);
+            }
+        }
+        return mainStack.pop(); // returns the completed infix expression
     }
 
     static double evalPrefix(String e) {
         String[] tokenizedPrefix = e.split(" ", 0);
         int n = tokenizedPrefix.length;
-        double evaluatedPfx = 0;
-        return evaluatedPfx;
+        // I believe the index starts at 1, might have to change
+        Stack<String> mainStack = new Stack<>(n);
+
+        for (int i = n - 1; i >= 0; i--) {
+            if (!isOperator(tokenizedPrefix[i]))
+                mainStack.push(tokenizedPrefix[i]);
+            else {
+                String A = mainStack.pop();
+                String B = mainStack.pop();
+                mainStack.push(evaluate(A, tokenizedPrefix[i], B));
+            }
+        }
+        return Double.parseDouble(mainStack.pop());
     }
 
     public static void main(String[] args) {
@@ -43,5 +63,33 @@ public class LabEx2 {
             System.out.println("Value: " + evalPrefix(s));
         }
 
+    }
+
+    // Utility Functions
+    static String evaluate(String A, String oprt, String B) {
+        double a = Double.parseDouble(A);
+        double b = Double.parseDouble(B);
+
+        switch (oprt) {
+            case "+":
+                return "" + (a + b);
+            case "-":
+                return "" + (a - b);
+            case "*":
+                return "" + (a * b);
+            case "/":
+                return "" + (a / b);
+            case "^":
+                return "" + (Math.pow(a, b));
+            default:
+                return "";
+        }
+
+    }
+
+    // O(1) solution instead of checking all the characters
+    static boolean isOperator(String s) {
+        char firstChar = s.charAt(0);
+        return firstChar == '-' || firstChar == '+' || firstChar == '/' || firstChar == '^' || firstChar == '*';
     }
 }
