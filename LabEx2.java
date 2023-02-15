@@ -1,3 +1,9 @@
+/* Vladimir Gray P. Velazco | Jam Meisy T. Tan
+ * ICS 2605
+ * 1 - CSC
+ * Lab Exercise 2 : Main
+ */
+
 import java.util.Scanner;
 
 public class LabEx2 {
@@ -22,8 +28,20 @@ public class LabEx2 {
     }
 
     public static void main(String[] args) {
-        String prefixExpression = console.nextLine();
-        System.out.println(prefixToInfix(prefixExpression));
+        // a.
+        System.out.println("Tan, Jam Meisy : Velazco, Vladimir Gray");
+        // b.
+        System.out.println("Input integer t : Range (1-2)");
+        int t = console.nextInt();
+        console.nextLine(); // eats up the trailing newline
+        System.out.println("Input a String (s) consisting of operators and operands delimited by spaces");
+        String s = console.nextLine();
+
+        if (t == 1) {
+            System.out.println("Prefix: " + s);
+            System.out.println("Infix: " + prefixToInfix(s));
+            System.out.println("Value: " + evalPrefix(s));
+        }
 
     }
 }
