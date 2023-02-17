@@ -49,7 +49,12 @@ public class LabEx2 {
 
     public static void main(String[] args) {
         // a.
-        System.out.println("Tan, Jam Meisy : Velazco, Vladimir Gray");
+        System.out.println("""
+                1CSC - Tan, Jam Meisy and Velazco, Vladimir Gray
+                ------------------------------------------------
+                1 - Prefix to Infix Notation + Evaluate
+                ------------------------------------------------
+                """);
         // b.
         System.out.println("Input integer t : Range (1-2)");
         int t = console.nextInt();
