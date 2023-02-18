@@ -15,6 +15,7 @@ public class LabEx2 {
                 1CSC - Tan, Jam Meisy and Velazco, Vladimir Gray
                 ------------------------------------------------
                 1 - Prefix to Infix Notation + Evaluate
+                2 - Infix to Prefix Notation + Evaluate
                 ------------------------------------------------
                 """);
         // b.
@@ -107,6 +108,8 @@ public class LabEx2 {
     }
 
     // Utility Functions
+
+    // this is what's currently causing the issues, cause no parenthesis
     static String evaluate(String A, String oprt, String B) {
         double a = Double.parseDouble(A);
         double b = Double.parseDouble(B);
