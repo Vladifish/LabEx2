@@ -28,6 +28,11 @@ public class LabEx2 {
             System.out.println("Prefix: " + s);
             System.out.println("Infix: " + prefixToInfix(s));
             System.out.println("Value: " + evalPrefix(s));
+        } else if (t == 2) {
+            System.out.println("Infix: " + s);
+            String prefixExp = infixToPrefix(s);
+            System.out.println("Prefix: " + prefixExp);
+            System.out.println("Value: " + evalPrefix(prefixExp));
         }
 
     }
@@ -97,7 +102,7 @@ public class LabEx2 {
         while (!mainStack.isEmpty()) {
             prefixString += mainStack.pop() + " ";
         }
-        return prefixString;
+        return prefixString.trim(); // removes trailing String cause of while loop
 
     }
 
