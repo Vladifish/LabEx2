@@ -85,11 +85,16 @@ public class LabEx2 {
 
         for (int i = n - 1; i >= 0; i--) {
             String el = tokenizedInfix[i];
+            // System.out.println(el);
             if (!isOperator(el))
                 mainStack.push(el);
-            else {
-                // incoming: 2, in-stack: 1
+            else if (el.equals("(")) {
+                while (!oprtStack.isEmpty() && !(oprtStack.peek().equals(")")))
+                    mainStack.push(oprtStack.pop());
+                oprtStack.pop();
+            } else {
                 // I just realized that is kinda close to the insertion sort, loop
+                // incoming: 2, in-stack: 1
                 while (!oprtStack.isEmpty() && precedence(el, 2) < precedence(oprtStack.peek(), 1))
                     mainStack.push(oprtStack.pop());
                 oprtStack.push(el);
@@ -162,7 +167,7 @@ public class LabEx2 {
                     case "*", "/" -> 5;
                     case "^" -> 8;
                     case ")" -> 9;
-                    case "(" -> 10;
+                    // case "(" -> 10;
                     default -> -999;
                 };
             }
