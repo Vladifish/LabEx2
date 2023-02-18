@@ -9,6 +9,29 @@ import java.util.Scanner;
 public class LabEx2 {
     final static Scanner console = new Scanner(System.in);
 
+    public static void main(String[] args) {
+        // a.
+        System.out.println("""
+                1CSC - Tan, Jam Meisy and Velazco, Vladimir Gray
+                ------------------------------------------------
+                1 - Prefix to Infix Notation + Evaluate
+                ------------------------------------------------
+                """);
+        // b.
+        System.out.println("Input integer t : Range (1-2)");
+        int t = console.nextInt();
+        console.nextLine(); // eats up the trailing newline
+        System.out.println("Input a String (s) consisting of operators and operands delimited by spaces");
+        String s = console.nextLine();
+
+        if (t == 1) {
+            System.out.println("Prefix: " + s);
+            System.out.println("Infix: " + prefixToInfix(s));
+            System.out.println("Value: " + evalPrefix(s));
+        }
+
+    }
+
     // parang baliktad yung code nito from the given pseudocode
     static String prefixToInfix(String e) {
         String[] tokenizedPrefix = e.split(" ", 0);
@@ -47,55 +70,34 @@ public class LabEx2 {
         return Double.parseDouble(mainStack.pop());
     }
 
-    /*
-     * Base Template for infix to Prefix : implement later
-     * public static String[] infixToPrefix(String[] array) {
-     * Stack<Character> s1 = new Stack<>(array.length) //Placeholder for operators
-     * Stack<Character> fix = new Stack<>(array.length) //Operands and operators
-     * String[] prefix = new String[array.length]
-     * 
-     * //Use of semi-pseudocode
-     * 
-     * for (int i = array.length - 1; i >= 0; i--) {
-     * if (array[i] == operand) {
-     * fix.push(array[i]);
-     * }
-     * else {
-     * while (!s1.isEmpty() && precedence(array[i]) < precedence(peek(s1)))
-     * fix.push(s1.pop());
-     * s1.push(array[i]);
-     * }
-     * }
-     * 
-     * while (!s1.isEmpty())
-     * fix.push(s1.pop());
-     * while (!fix.isEmpty())
-     * prefix[k++] = fix.pop();
-     * 
-     * return prefix;
-     * }
-     */
+    // apparently returns String for the lab ver.
+    static String infixToPrefix(String e) {
+        String[] tokenizedInfix = e.split(" ", 0);
+        int n = tokenizedInfix.length;
+        Stack<String> oprtStack = new Stack<>(n);
+        Stack<String> mainStack = new Stack<>(n);
 
-    public static void main(String[] args) {
-        // a.
-        System.out.println("""
-                1CSC - Tan, Jam Meisy and Velazco, Vladimir Gray
-                ------------------------------------------------
-                1 - Prefix to Infix Notation + Evaluate
-                ------------------------------------------------
-                """);
-        // b.
-        System.out.println("Input integer t : Range (1-2)");
-        int t = console.nextInt();
-        console.nextLine(); // eats up the trailing newline
-        System.out.println("Input a String (s) consisting of operators and operands delimited by spaces");
-        String s = console.nextLine();
-
-        if (t == 1) {
-            System.out.println("Prefix: " + s);
-            System.out.println("Infix: " + prefixToInfix(s));
-            System.out.println("Value: " + evalPrefix(s));
+        for (int i = n - 1; i >= 0; i--) {
+            String el = tokenizedInfix[i];
+            if (!isOperator(el))
+                mainStack.push(el);
+            else {
+                // incoming: 2, in-stack: 1
+                // I just realized that is kinda close to the insertion sort, loop
+                while (!oprtStack.isEmpty() && precedence(el, 2) < precedence(oprtStack.peek(), 1))
+                    mainStack.push(oprtStack.pop());
+                oprtStack.push(el);
+            }
         }
+
+        while (!oprtStack.isEmpty())
+            mainStack.push(oprtStack.pop());
+
+        String prefixString = "";
+        while (!mainStack.isEmpty()) {
+            prefixString += mainStack.pop() + " ";
+        }
+        return prefixString;
 
     }
 
@@ -113,23 +115,26 @@ public class LabEx2 {
                 return "" + (a * b);
             case "/":
                 return "" + (a / b);
+            case "%":
+                return "" + (a % b);
             case "^":
                 return "" + (Math.pow(a, b));
             default:
                 return "";
         }
-
     }
 
     // O(1) solution instead of checking all the characters
     static boolean isOperator(String s) {
         char firstChar = s.charAt(0);
-        return firstChar == '-' || firstChar == '+' || firstChar == '/' || firstChar == '^' || firstChar == '*';
+        return firstChar == '-' || firstChar == '+' || firstChar == '/' ||
+                firstChar == '^' || firstChar == '*' || firstChar == '%' ||
+                firstChar == '(' || firstChar == ')';
     }
 
     public static int precedence(String x, int code) {
         // PREFIX In-Stack 1, Incoming 2
-        // POSTFIX In-Stack 3, Incoming 4
+        // POSTFIX In-Stack 3, Incoming 4, no modulo yet
         switch (code) {
             case 1 -> {
                 return switch (x) {
@@ -141,13 +146,7 @@ public class LabEx2 {
                     default -> -999;
                 };
             }
-            /*
-             * case "+", "-" -> 2;
-             * case "*", "/" -> 4;
-             * case "^" -> 5;
-             * case ")" -> 0;
-             * default -> -999;
-             */
+
             case 2 -> {
                 return switch (x) {
                     case "+", "-" -> 1;
@@ -159,19 +158,7 @@ public class LabEx2 {
                     default -> -999;
                 };
             }
-            /*
-             * case 2 -> {
-             * return switch (x) {
-             * case "+", "-" -> 1;
-             * case "*", "/" -> 3;
-             * case "^" -> 6;
-             * case ")" -> 9;
-             * case "(" -> 10;
-             * default -> -999;
-             * };
-             * }
-             * 
-             */
+
             case 3 -> {
                 return switch (x) {
                     case "+", "-" -> 2;
