@@ -51,7 +51,7 @@ public class LabEx2 {
             else {
                 String A = mainStack.pop();
                 String B = mainStack.pop();
-                String infixExp = String.format("( %s %s %s ) ", A, tokenizedPrefix[i], B);
+                String infixExp = String.format("( %s %s %s )", A, tokenizedPrefix[i], B);
                 mainStack.push(infixExp);
             }
         }
@@ -151,9 +151,9 @@ public class LabEx2 {
         switch (code) {
             case 1 -> {
                 return switch (x) {
-                    case "+", "-" -> 2;
-                    case "%" -> 4;
-                    case "*", "/" -> 6;
+                    case "+", "-" -> 1;
+                    case "%" -> 3;
+                    case "*", "/" -> 5;
                     case "^" -> 7;
                     case ")" -> 0;
                     default -> -999;
@@ -162,35 +162,37 @@ public class LabEx2 {
 
             case 2 -> {
                 return switch (x) {
-                    case "+", "-" -> 1;
-                    case "%" -> 3;
-                    case "*", "/" -> 5;
+                    case "+", "-" -> 2;
+                    case "%" -> 4;
+                    case "*", "/" -> 6;
                     case "^" -> 8;
                     case ")" -> 9;
-                    // case "(" -> 10;
                     default -> -999;
                 };
             }
 
-            case 3 -> {
-                return switch (x) {
-                    case "+", "-" -> 2;
-                    case "*", "/" -> 4;
-                    case "^" -> 5;
-                    case "(" -> 0;
-                    default -> -999;
-                };
-            }
-            case 4 -> {
-                return switch (x) {
-                    case "+", "-" -> 1;
-                    case "*", "/" -> 3;
-                    case "^" -> 6;
-                    case "(" -> 9;
-                    case ")" -> 10;
-                    default -> -999;
-                };
-            }
+            /*
+             * post-fix
+             * case 3 -> {
+             * return switch (x) {
+             * case "+", "-" -> 2;
+             * case "*", "/" -> 4;
+             * case "^" -> 5;
+             * case "(" -> 0;
+             * default -> -999;
+             * };
+             * }
+             * case 4 -> {
+             * return switch (x) {
+             * case "+", "-" -> 1;
+             * case "*", "/" -> 3;
+             * case "^" -> 6;
+             * case "(" -> 9;
+             * case ")" -> 10;
+             * default -> -999;
+             * };
+             * }
+             */
         }
         return -999;
     }
