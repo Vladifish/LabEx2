@@ -154,7 +154,7 @@ public class LabEx2 {
                     case "+", "-" -> 1;
                     case "%" -> 3;
                     case "*", "/" -> 5;
-                    case "^" -> 7;
+                    case "^" -> 8;
                     case ")" -> 0;
                     default -> -999;
                 };
@@ -165,7 +165,7 @@ public class LabEx2 {
                     case "+", "-" -> 2;
                     case "%" -> 4;
                     case "*", "/" -> 6;
-                    case "^" -> 8;
+                    case "^" -> 7;
                     case ")" -> 9;
                     default -> -999;
                 };
