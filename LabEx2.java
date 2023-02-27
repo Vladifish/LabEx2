@@ -61,7 +61,6 @@ public class LabEx2 {
     static double evalPrefix(String e) {
         String[] tokenizedPrefix = e.split(" ", 0);
         int n = tokenizedPrefix.length;
-        // I believe the index starts at 1, might have to change
         Stack<String> mainStack = new Stack<>(n);
 
         for (int i = n - 1; i >= 0; i--) {
@@ -170,29 +169,6 @@ public class LabEx2 {
                     default -> -999;
                 };
             }
-
-            /*
-             * post-fix
-             * case 3 -> {
-             * return switch (x) {
-             * case "+", "-" -> 2;
-             * case "*", "/" -> 4;
-             * case "^" -> 5;
-             * case "(" -> 0;
-             * default -> -999;
-             * };
-             * }
-             * case 4 -> {
-             * return switch (x) {
-             * case "+", "-" -> 1;
-             * case "*", "/" -> 3;
-             * case "^" -> 6;
-             * case "(" -> 9;
-             * case ")" -> 10;
-             * default -> -999;
-             * };
-             * }
-             */
         }
         return -999;
     }
